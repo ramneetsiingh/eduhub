@@ -1,0 +1,11 @@
+#can {
+    display: block;
+    margin: auto;
+}
+
+.canvas-control {
+    text-align: center;
+    word-spacing: 50px;
+    margin: 10px;
+    padding: 20px; 
+}
