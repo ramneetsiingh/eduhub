@@ -1,5 +1,10 @@
+let canvasWidth = 640;
+let canvasHeight = 480;
+
 const canvas = document.getElementById('can');
 canvas.style.borderStyle = 'solid';
+canvas.width = canvasWidth;
+canvas.height = canvasHeight;
 const context = canvas.getContext('2d');
 
 let video = {
@@ -8,23 +13,24 @@ let video = {
 }
 
 let startRecording = function () {
-    if(isRecording === true) return;
+    if (isRecording === true) return;
     isRecording = true;
     let isDrawing = false;
+    let pause = false;
     let prevX;
     let prevY;
     let curX;
     let curY;
-    const fps = 24;
+    const fps = 25;
     video.fps = fps;
-    // const startTime = new Date().getTime();
     let timeIndex = 0;
     let color = 'black';
     let lineWidth = 2;
 
+    let interval = 1000 / fps;
+
     // Updating mouse coordinates
     canvas.addEventListener('mousemove', e => {
-
         curX = e.offsetX;
         curY = e.offsetY;
     });
@@ -39,7 +45,9 @@ let startRecording = function () {
 
     // When mouse is keep pressed
     setInterval(() => {
+        if (pause == true) return;
         timeIndex++;
+        document.querySelector('.timer').innerHTML = toHHMMSS(Math.floor(timeIndex * interval / 1000));
         if (isDrawing === true) {
             if (curX == prevX && curY == prevY) {
                 return;
@@ -50,12 +58,15 @@ let startRecording = function () {
             prevY = curY;
             saveStroke(prevX, prevY, 'mousemove');
         }
-    }, 1000 / fps);
+    }, interval);
+
 
     // When mouse is unpressed
     window.addEventListener('mouseup', e => {
-        saveStroke(curX, curY, 'mouseup');
-        isDrawing = false;
+        if (isDrawing === true) {
+            saveStroke(curX, curY, 'mouseup');
+            isDrawing = false;
+        }
     });
 
     // Save time and coordinates to video object
@@ -67,6 +78,19 @@ let startRecording = function () {
             'event': mouseEvent
         };
     }
+
+    document.getElementById('pause-recording').addEventListener('click', () => {
+        pause = pause ^ true;
+        let btnText = document.getElementById('pause-recording');
+        if (pause == true) {
+            btnText.innerHTML = 'Resume Video';
+            console.log('Hello');
+        }
+        else {
+            btnText.innerHTML = 'Pause Video';
+        }
+    });
+
 }
 
 let isRecording = false;
@@ -74,4 +98,4 @@ document.getElementById('start-recording').addEventListener('click', startRecord
 
 document.getElementById('finish-recording').addEventListener('click', () => {
     console.log(test);
-})
+});
