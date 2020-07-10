@@ -9,3 +9,15 @@
     margin: 10px;
     padding: 20px; 
 }
+
+.canvas-container {
+    position: relative;
+
+}
+
+.timer {
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    font-size: 18px;
+}

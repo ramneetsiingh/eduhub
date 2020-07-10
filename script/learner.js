@@ -3,7 +3,10 @@ canvas.style.borderStyle = 'solid';
 const context = canvas.getContext('2d');
 
 let playVideo = function(video) {
-    fps = video.fps;
+    if(isPlaying) return;
+    isPlaying = true;
+    let interval  = 1000/video.fps;
+    let pause = false;
     timeIndex = 0;
     let prevX;
     let prevY;
@@ -14,6 +17,7 @@ let playVideo = function(video) {
 
     setInterval(() => {
         timeIndex++;
+        document.querySelector('.timer').innerHTML = toHHMMSS(Math.floor(timeIndex*interval/1000));
         curPoint = video.stroke[timeIndex]
         if (curPoint != undefined) {
             console.log('Draw');
@@ -30,9 +34,13 @@ let playVideo = function(video) {
                 prevY = curY;
             }
         }
-    }, 1000 / fps);
+    }, interval);
+
+
+
 }
 
+let isPlaying = false;
 document.getElementById('play-video').addEventListener('click', () => {
     playVideo(video);
 });

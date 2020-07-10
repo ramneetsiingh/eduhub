@@ -7,14 +7,16 @@
     <link rel="stylesheet" href="style/style.css" />
 </head>
 <body>
-    <canvas id="can" width="640" height="480"></canvas>
+    <div class="canvas-container">
+        <canvas id="can" width="640" height="480"></canvas>
+        <div class="timer">00:00:00</div>
+    </div>
     <div class="canvas-control">
         <button id="play-video">Play Video</button>
-        <!-- <button id="finish-recording">Finish Recording</button> -->
     </div>
 
     <script src="script/test.js"></script>
-    <script src="script/drawing.js"></script>
+    <script src="script/common.js"></script>
     <script src="script/learner.js"></script>
 </body>
 </html>
