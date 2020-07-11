@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduHub</title>
-    <link rel="stylesheet" href="../static/style.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 <body>
     <div class="canvas-container">
@@ -16,7 +16,8 @@
         <button id="pause-recording">Pause Recording</button>
         <button id="finish-recording">Finish Recording</button>
     </div>
-    <script src="../js/common.js"></script>
-    <script src="../js/tutor.js"></script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/tutor.js') }}"></script>
 </body>
 </html>
