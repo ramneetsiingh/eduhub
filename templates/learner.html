@@ -6,8 +6,9 @@
 
 
 {% block content %}
-<div class="canvas-control">
-    <button id="pause-recording">Play Video</button>
+<div class="init"><button id="init-recording">Play Video</button></div>
+<div class="canvas-control" style="display: none;">
+    <button id="control-recording">Pause</button>
 </div> 
 
 <script type="text/javascript" src="{{ url_for('static', filename='js/common.js') }}"></script>
