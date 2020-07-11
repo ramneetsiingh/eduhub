@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - EDUHUB</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base.css') }}" />
+    {% block style %}{% endblock %}
+</head>
+
+<body>
+    <header>
+        <div class="logo">EDUHUB</div>
+        <nav>
+            <ul class="nav__links">
+                <li><a href="#">Explore</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+        <a class="cta" href="{{ url_for('tutor') }}"><button>Create Video</button></a>
+    </header>
+    {% if canvas %}
+    <div class="canvas-container">
+        <canvas id="can"></canvas>
+        <div class="timer">00:00:00</div>
+    </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+
+</body>
+
+</html>

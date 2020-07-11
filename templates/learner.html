@@ -1,22 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduHub</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
-</head>
-<body>
-    <div class="canvas-container">
-        <canvas id="can" width="640" height="480"></canvas>
-        <div class="timer">00:00:00</div>
-    </div>
-    <div class="canvas-control">
-        <button id="play-video">Play Video</button>
-    </div>
+{% extends "base.html" %}
+{% block title %}Play Video{% endblock %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+{% endblock %}
 
-    <script type="text/javascript" src="{{ url_for('static', filename='js/test.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/common.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/learner.js') }}"></script>
-</body>
-</html>
+
+{% block content %}
+<div class="canvas-control">
+    <button id="pause-recording">Play Video</button>
+</div> 
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/common.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/learner.js') }}"></script>
+{% endblock %}
