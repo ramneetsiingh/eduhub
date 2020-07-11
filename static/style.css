@@ -1,23 +1,29 @@
-#can {
-    display: block;
+.canvas-container {
+    position: relative;
+    width: 640px;
     margin: auto;
 }
 
-.canvas-control {
-    text-align: center;
-    word-spacing: 50px;
-    margin: 10px;
-    padding: 20px; 
-}
-
-.canvas-container {
-    position: relative;
-
+#can {
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
 }
 
 .timer {
     position: absolute;
-    top: 2px;
-    left: 50%;
+    top: 0px;
+    right: 0px;
+    text-align: center;
     font-size: 18px;
+    color: red;
+    background-color: transparent;
+}
+
+.canvas-control {
+    text-align: center;
+    word-spacing: 40px;
+    margin: 10px;
+    padding: 20px; 
 }
