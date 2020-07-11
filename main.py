@@ -9,11 +9,11 @@ def index():
 
 @app.route('/tutor')
 def tutor():
-    return render_template('tutor.html')
+    return render_template('tutor.html', canvas=True)
 
 @app.route('/learner')
 def learner():
-    return render_template('learner.html')
+    return render_template('learner.html', canvas=True)
 
 @app.route('/upload', methods=['POST'])
 def upload():
