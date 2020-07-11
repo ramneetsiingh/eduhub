@@ -1,32 +1,24 @@
-let canvasWidth = 640;
-let canvasHeight = 480;
-
-const canvas = document.getElementById('can');
-canvas.style.borderStyle = 'solid';
-canvas.width = canvasWidth;
-canvas.height = canvasHeight;
-const context = canvas.getContext('2d');
-
 let video = {
     'name': 'MyDrawing',
     'stroke': {}
 }
 
-let startRecording = function () {
-    if (isRecording === true) return;
-    isRecording = true;
+
+let pause = true;
+
+(function () {
     let isDrawing = false;
-    let pause = false;
+
     let prevX;
     let prevY;
     let curX;
     let curY;
-    const fps = 25;
-    video.fps = fps;
     let timeIndex = 0;
     let color = 'black';
     let lineWidth = 2;
 
+    const fps = 25;
+    video.fps = fps;
     let interval = 1000 / fps;
 
     // Updating mouse coordinates
@@ -78,25 +70,17 @@ let startRecording = function () {
         };
     }
 
-    document.getElementById('pause-recording').addEventListener('click', () => {
-        pause = pause ^ true;
-        let btnText = document.getElementById('pause-recording');
-        if (pause == true) {
-            btnText.innerHTML = 'Resume Video';
-        }
-        else {
-            btnText.innerHTML = 'Pause Video';
-        }
-    });
+
 
     document.getElementById('finish-recording').addEventListener('click', () => {
+        pause = true;
         postVideo('upload', video)
             .then(res => {
                 console.log(res);
             })
     });
 
-}
+})();
 
 async function postVideo(url, data) {
     const response = await fetch(url, {
@@ -109,7 +93,3 @@ async function postVideo(url, data) {
     return response.json();
 }
 
-
-
-let isRecording = false;
-document.getElementById('start-recording').addEventListener('click', startRecording);

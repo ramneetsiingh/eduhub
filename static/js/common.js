@@ -1,3 +1,12 @@
+let canvasWidth = 640;
+let canvasHeight = 480;
+
+const canvas = document.getElementById('can');
+canvas.width = canvasWidth;
+canvas.height = canvasHeight;
+const context = canvas.getContext('2d');
+
+
 function drawLine(context, x1, y1, x2, y2, color, lineWidth) {
     context.beginPath();
     context.strokeStyle = color;
@@ -19,4 +28,13 @@ function toHHMMSS(sec_num){
     return hours+':'+minutes+':'+seconds;
 }
 
-test = 'Drawing.js'
+document.getElementById('pause-recording').addEventListener('click', () => {
+    pause = pause ^ true;
+    let btnText = document.getElementById('pause-recording');
+    if (pause == true) {
+        btnText.innerHTML = 'Resume Video';
+    }
+    else {
+        btnText.innerHTML = 'Pause Video';
+    }
+});
