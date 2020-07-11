@@ -21,7 +21,7 @@
     background-color: transparent;
 }
 
-.canvas-control {
+.canvas-control, .init {
     text-align: center;
     word-spacing: 40px;
     margin: 10px;
