@@ -23,6 +23,10 @@ def upload():
     response = make_response(jsonify({'status': 'SUCCESS'}), 200)
     return response
 
+@app.route('/success')
+def success():
+    return render_template('success.html', title='Success', message='Your video is uploaded successfully.')
+
 @app.route('/download')
 def download():
     print('[DOWNLOAD]')
