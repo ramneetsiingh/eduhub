@@ -71,7 +71,7 @@ let pause = true;
 
 
     document.getElementById('finish-recording').addEventListener('click', () => {
-        video.stroke[timeIndex] = "FINISH";
+        video.finishTime = timeIndex;
         clearInterval(intervalID);
         pause = true;
         postVideo('upload', video)
