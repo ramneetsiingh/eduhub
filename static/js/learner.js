@@ -19,12 +19,13 @@ fetch('/download')
         document.querySelector('.timer').innerHTML = toHHMMSS(Math.floor(timeIndex*interval/1000));
         curPoint = video.stroke[timeIndex]
         if (curPoint != undefined) {
-            console.log(curPoint.x, curPoint.y);
             if (curPoint.event == "mousedown") {
                 prevX = curPoint.x;
                 prevY = curPoint.y;
             }
             else {
+                if(curPoint.event == "mouseup")
+                    console.log(curPoint.x, curPoint.y);
                 curX = curPoint.x;
                 curY = curPoint.y;
                 drawLine(context, prevX, prevY, curX, curY, color, lineWidth);

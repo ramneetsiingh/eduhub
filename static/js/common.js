@@ -28,13 +28,20 @@ function toHHMMSS(sec_num){
     return hours+':'+minutes+':'+seconds;
 }
 
-document.getElementById('pause-recording').addEventListener('click', () => {
+document.getElementById('control-recording').addEventListener('click', () => {
     pause = pause ^ true;
-    let btnText = document.getElementById('pause-recording');
+    let btnText = document.getElementById('control-recording');
     if (pause == true) {
-        btnText.innerHTML = 'Resume Video';
+        btnText.innerHTML = 'Resume';
     }
     else {
-        btnText.innerHTML = 'Pause Video';
+        btnText.innerHTML = 'Pause';
     }
 });
+
+document.getElementById('init-recording').addEventListener('click', () => {
+    pause = false;
+    document.querySelector('.init').style.display = 'none';
+    document.querySelector('.canvas-control').style.display = '';
+});
+

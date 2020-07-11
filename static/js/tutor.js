@@ -1,12 +1,10 @@
-let video = {
-    'name': 'MyDrawing',
-    'stroke': {}
-}
-
-
 let pause = true;
 
 (function () {
+    let video = {
+        'name': 'MyDrawing',
+        'stroke': {}
+    }
     let isDrawing = false;
 
     let prevX;
@@ -36,7 +34,7 @@ let pause = true;
     });
 
     // When mouse is keep pressed
-    setInterval(() => {
+    let intervalID = setInterval(() => {
         if (pause == true) return;
         timeIndex++;
         document.querySelector('.timer').innerHTML = toHHMMSS(Math.floor(timeIndex * interval / 1000));
@@ -73,10 +71,13 @@ let pause = true;
 
 
     document.getElementById('finish-recording').addEventListener('click', () => {
+        video.stroke[timeIndex] = "FINISH";
+        clearInterval(intervalID);
         pause = true;
         postVideo('upload', video)
             .then(res => {
-                console.log(res);
+                if(res.status == 'SUCCESS')
+                    location.replace('/success')
             })
     });
 
