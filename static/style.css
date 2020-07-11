@@ -28,3 +28,18 @@
     margin: 10px;
     padding: 20px; 
 }
+
+.upload-video {
+    text-align: center;
+}
+
+input[type=text] {
+    color: black;
+    width: 500px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: rgba(200, 200, 200, 1);
+  }

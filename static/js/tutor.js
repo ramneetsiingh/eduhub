@@ -2,7 +2,6 @@ let pause = true;
 
 (function () {
     let video = {
-        'name': 'MyDrawing',
         'stroke': {}
     }
     let isDrawing = false;
@@ -73,7 +72,13 @@ let pause = true;
     document.getElementById('finish-recording').addEventListener('click', () => {
         video.finishTime = timeIndex;
         clearInterval(intervalID);
-        pause = true;
+        document.querySelector('.canvas-control').style.display = 'none';
+        document.querySelector('.upload-video').style.display = '';
+    });
+
+    document.getElementById('upload').addEventListener('click', () => {
+        video.name = document.getElementById("video-name").value;
+
         postVideo('upload', video)
             .then(res => {
                 if(res.status == 'SUCCESS')

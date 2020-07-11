@@ -1,5 +1,6 @@
 let pause = true;
-fetch('/download')
+const id = location.href.split('/')
+fetch('/download?id=' + id[id.length-1])
     .then(res => res.json())
     .then(data => {
         const video = data;

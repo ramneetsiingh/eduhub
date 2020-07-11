@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Explore{% endblock %}
+{% block style %}
+<style>
+    .videos {
+        font-size: 30px;
+        color: white;
+        width: 70%;
+        margin: auto;
+    }
+    .video-name {
+        display: block;
+        padding: 10px 20px;
+        margin: 20px;
+        background-color: teal;
+        border-radius: 5px;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+{% for vid in videos %}
+<div class="videos">
+    <a class="video-name" href="{{ vid.href }}">{{vid.name}}</a>
+</div>
+{% endfor %}
+{% endblock %}
