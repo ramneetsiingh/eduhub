@@ -91,11 +91,30 @@ let startRecording = function () {
         }
     });
 
+    document.getElementById('finish-recording').addEventListener('click', () => {
+        console.log('sending')
+        postVideo('http://127.0.0.1:8000/send', video)
+            .then(data => {
+                console.log('received')
+                console.log(data);
+            });
+    });
+
 }
+
+async function postVideo(url, data) {
+    const response = await fetch(url, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(data)
+    });
+    return response
+}
+
+
 
 let isRecording = false;
 document.getElementById('start-recording').addEventListener('click', startRecording);
-
-document.getElementById('finish-recording').addEventListener('click', () => {
-    console.log(test);
-});
