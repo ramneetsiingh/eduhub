@@ -2,7 +2,12 @@ const canvas = document.getElementById('can');
 canvas.style.borderStyle = 'solid';
 const context = canvas.getContext('2d');
 
-let playVideo = function(video) {
+let video;
+fetch('/download')
+.then(res => res.json())
+.then(data => video = data);
+
+let playVideo = function() {
     if(isPlaying) return;
     isPlaying = true;
     let interval  = 1000/video.fps;
@@ -42,5 +47,5 @@ let playVideo = function(video) {
 
 let isPlaying = false;
 document.getElementById('play-video').addEventListener('click', () => {
-    playVideo(video);
+    playVideo();
 });

@@ -15,14 +15,22 @@ def tutor():
 def learner():
     return render_template('learner.html')
 
-@app.route('/send', methods=['POST'])
-def send():
-    print('[RECEIVING]')
-    vid = json.loads(request.data)
-    print(vid)
-    # response = make_response(jsonify({'status': 'SUCCESS'}), 200)
-    print('Sending')
-    return "Hello"
+@app.route('/upload', methods=['POST'])
+def upload():
+    print('[UPLOAD]')
+    with open('videos/1', 'wb') as f:
+        f.write(request.data)
+    response = make_response(jsonify({'status': 'SUCCESS'}), 200)
+    return response
+
+@app.route('/download')
+def download():
+    print('[DOWNLOAD]')
+    # id = request.args.get('')
+    with open('videos/1', 'rb') as f:
+        vid = f.read()
+    response = make_response(vid, 200)
+    return response
 
 if __name__ == '__main__':
-    app.run(host='localhost', port='8000', debug=True)
+    app.run(host='127.0.0.1', port='8000', debug=True)

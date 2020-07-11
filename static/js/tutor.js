@@ -52,7 +52,6 @@ let startRecording = function () {
             if (curX == prevX && curY == prevY) {
                 return;
             }
-            console.log('Draw');
             drawLine(context, prevX, prevY, curX, curY, color, lineWidth);
             prevX = curX;
             prevY = curY;
@@ -84,7 +83,6 @@ let startRecording = function () {
         let btnText = document.getElementById('pause-recording');
         if (pause == true) {
             btnText.innerHTML = 'Resume Video';
-            console.log('Hello');
         }
         else {
             btnText.innerHTML = 'Pause Video';
@@ -92,12 +90,10 @@ let startRecording = function () {
     });
 
     document.getElementById('finish-recording').addEventListener('click', () => {
-        console.log('sending')
-        postVideo('http://127.0.0.1:8000/send', video)
-            .then(data => {
-                console.log('received')
-                console.log(data);
-            });
+        postVideo('upload', video)
+            .then(res => {
+                console.log(res);
+            })
     });
 
 }
@@ -105,13 +101,12 @@ let startRecording = function () {
 async function postVideo(url, data) {
     const response = await fetch(url, {
         method: 'POST',
-        mode: 'no-cors',
         headers: new Headers({
             'Content-Type': 'application/json'
         }),
         body: JSON.stringify(data)
     });
-    return response
+    return response.json();
 }
 
 
