@@ -3,16 +3,18 @@ import json
 import random
 from datetime import datetime
 import os
+from dbConfig import client
 
 app = Flask(__name__)
+
+db = client['eduhub']['videos']
 
 @app.route('/')
 def index():
     videos = []
-    for vidID in os.listdir('videos'):
-        with open('videos/' + vidID, 'rb') as f:
-            name = json.loads(f.read()).get('name')
-        videos.append({'name' : name, 'href': 'learner/'+vidID})
+    all_videos = db.find({}, {'name': 1, 'id': 1})
+    for vid in all_videos:
+        videos.append({'name' : vid['name'], 'href': 'learner/'+ str(vid['id'])})
 
     return render_template('index.html',videos = videos)
 
@@ -29,9 +31,8 @@ def upload():
     print('[UPLOAD]')
     vid = json.loads(request.data)
     random.seed(datetime.now())
-    videoID = random.randint(100000000,999999999)
-    with open('videos/' + str(videoID), 'wb') as f:
-        f.write(request.data)
+    vid['id'] = random.randint(100000000,999999999)
+    db.insert_one(vid)
     response = make_response(jsonify({'status': 'SUCCESS'}), 200)
     return response
 
@@ -42,10 +43,10 @@ def success():
 @app.route('/download')
 def download():
     print('[DOWNLOAD]')
-    id = request.args.get('id')
-    with open('videos/' + id, 'rb') as f:
-        vid = f.read()
-    response = make_response(vid, 200)
+    id = int(request.args.get('id'))
+    vid = db.find_one({'id': id})
+    vid.pop('_id')
+    response = make_response(json.dumps(vid), 200)
     return response
 
 if __name__ == '__main__':
