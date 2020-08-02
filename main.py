@@ -3,10 +3,11 @@ import json
 import random
 from datetime import datetime
 import os
-from dbConfig import client
+from dbConfig import dbCredentials
+import pymongo
 
 app = Flask(__name__)
-
+client = pymongo.MongoClient(dbCredentials)
 db = client['eduhub']['videos']
 
 @app.route('/')
