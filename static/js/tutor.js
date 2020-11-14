@@ -2,7 +2,8 @@ let pause = true;
 
 (function () {
     let video = {
-        'stroke': {}
+        'stroke': {},
+        'audio' : {}
     }
     let isDrawing = false;
 
@@ -17,6 +18,7 @@ let pause = true;
     const fps = 25;
     video.fps = fps;
     let interval = 1000 / fps;
+
 
     // Updating mouse coordinates
     canvas.addEventListener('mousemove', e => {
@@ -67,11 +69,36 @@ let pause = true;
         };
     }
 
+    // SPEECH TO TEXT BEGIN
+    var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+    var recognition = new SpeechRecognition();
+    recognition.continuous = true;
+    var resultIndex = 0;
+
+    recognition.onstart = function() {
+        console.log("We are listening. Try speaking into the microphone.");
+    };
+    recognition.onend = function() {
+        console.log("Recording stopped");
+    };
+
+    recognition.onresult = function(event) {
+        var transcript = event.results[resultIndex][0].transcript;
+        resultIndex++;
+        console.log(transcript);
+        if(pause == false){        
+            video.audio[timeIndex] = transcript;
+        }
+    };
+    recognition.start();
+    // SPEECH TO TEXT END
+
 
 
     document.getElementById('finish-recording').addEventListener('click', () => {
         video.finishTime = timeIndex;
         clearInterval(intervalID);
+        recognition.stop();
         document.querySelector('.canvas-control').style.display = 'none';
         document.querySelector('.upload-video').style.display = '';
     });
@@ -81,7 +108,7 @@ let pause = true;
 
         postVideo('upload', video)
             .then(res => {
-                if(res.status == 'SUCCESS')
+                if (res.status == 'SUCCESS')
                     location.replace('/success')
             })
     });
@@ -98,4 +125,3 @@ async function postVideo(url, data) {
     });
     return response.json();
 }
-

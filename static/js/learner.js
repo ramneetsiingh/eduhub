@@ -42,6 +42,12 @@ fetch('/download?id=' + id[id.length-1])
                     prevY = curY;
                 }
             }
+
+            if(video.audio[timeIndex] != undefined){
+                var msg = new SpeechSynthesisUtterance();
+                msg.text = video.audio[timeIndex];
+                window.speechSynthesis.speak(msg);
+            }
         }, interval);
 
         function videoEnd() {
